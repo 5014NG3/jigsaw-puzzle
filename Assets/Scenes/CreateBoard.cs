@@ -44,16 +44,7 @@ public class CreateBoard : MonoBehaviour
         }
     }
 
-    public static void DeletePieces()
-    {
-        string piecekey;
-        for (int i = 0; i < totalPieces; i++)
-        {
-            piecekey = "piece_" + (i+1).ToString();
-            GameObject piece = GameObject.Find(piecekey);
-            Destroy(piece);
-        }
-    }
+
 
     public static void CountPiece()
     {
@@ -61,7 +52,6 @@ public class CreateBoard : MonoBehaviour
 
         if (puzzleProgress == totalPieces)
         {
-            //DeletePieces();
             //make the complete puzzle visible
 
             GameObject completePuzzle = GameObject.Find("complete_puzzle");
