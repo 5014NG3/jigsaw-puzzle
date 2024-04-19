@@ -7,8 +7,11 @@ public class Pickup : MonoBehaviour
 
     private bool isDragging = false;
     private Vector3 offset;
-    private string slot_key;
+    private float hoverDistance = 0.33f;
+    private string slotKey;
     private Vector3 initialPosition;
+    private bool isLocked = false;
+
 
 
     public Vector2 boxSize = new Vector2(1f, 1f);
@@ -19,16 +22,15 @@ public class Pickup : MonoBehaviour
 
 
 
-
     void Start()
     {
         initialPosition = transform.position;
-        slot_key =  "slot_" + pieceNumber.ToString();
+        slotKey =  "slot_" + pieceNumber.ToString();
     }
 
     void OnMouseDown()
     {
-        if (Input.GetMouseButtonDown(0)) {
+        if (!isLocked && Input.GetMouseButtonDown(0)) {
             //offset between sprite position and mouse position
             //transform.position -> current position of sprite in world space
             //input.mousePosition -> position of mouse
@@ -39,24 +41,33 @@ public class Pickup : MonoBehaviour
 
     void OnMouseUp()
     {
+
+        if (isLocked)
+        {
+            return;
+        }
+
         isDragging = false;
         //CHECK IF WHERE THEY LEFT THE PIECE IS THE RIGHT SLOT
 
-        GameObject slot = GameObject.Find(slot_key);
+        GameObject slot = GameObject.Find(slotKey);
         if (slot != null)
         {
             Vector3 slotPosition = slot.transform.position;
 
-            float hoverDistance = 0.25f;
             if (Vector3.Distance(transform.position, slotPosition) <= hoverDistance)
             {
                 //snap into place 
                 transform.position = slotPosition;
 
+                isLocked = true;
+
             }
             else
             {
+                //return to initial position
                 transform.position = initialPosition;
+
             }
         }
     }
@@ -65,7 +76,7 @@ public class Pickup : MonoBehaviour
 
     void Update()
     {
-        if (isDragging) {
+        if (!isLocked && isDragging) {
             Vector3 mousePosition = Input.mousePosition;
             mousePosition.z = Camera.main.WorldToScreenPoint(transform.position).z;
             transform.position = Camera.main.ScreenToWorldPoint(mousePosition + offset);
