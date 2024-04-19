@@ -11,6 +11,8 @@ public class Pickup : MonoBehaviour
     private string slotKey;
     private Vector3 initialPosition;
     private bool isLocked = false;
+    public AudioSource snapSound;
+    public AudioSource errorSound;
 
 
 
@@ -60,6 +62,7 @@ public class Pickup : MonoBehaviour
                 //snap into place 
                 transform.position = slotPosition;
                 CreateBoard.CountPiece();
+                snapSound.Play();
 
                 isLocked = true;
 
@@ -68,6 +71,7 @@ public class Pickup : MonoBehaviour
             {
                 //return to initial position
                 transform.position = initialPosition;
+                errorSound.Play();
 
             }
         }

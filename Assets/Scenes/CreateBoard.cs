@@ -69,6 +69,10 @@ public class CreateBoard : MonoBehaviour
             SpriteRenderer renderer = completePuzzle.GetComponent<SpriteRenderer>();
             renderer.enabled = true;
 
+            GameObject victory =  GameObject.Find("Victory");
+            AudioSource victory_sound = victory.GetComponent<AudioSource>();
+            victory_sound.Play();
+
 
         }
 
