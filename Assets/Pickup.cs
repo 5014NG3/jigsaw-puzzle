@@ -7,16 +7,22 @@ public class Pickup : MonoBehaviour
 
     private bool isDragging = false;
     private Vector3 offset;
+    private string slot_key;
+    private Vector3 initialPosition;
+
+
     public Vector2 boxSize = new Vector2(1f, 1f);
     public Vector2 boxOffset = new Vector2(0f, 0f);
     public int pieceNumber = -1;
-    private string slot_key;
+
+
 
 
 
 
     void Start()
     {
+        initialPosition = transform.position;
         slot_key =  "slot_" + pieceNumber.ToString();
     }
 
@@ -44,7 +50,13 @@ public class Pickup : MonoBehaviour
             float hoverDistance = 0.25f;
             if (Vector3.Distance(transform.position, slotPosition) <= hoverDistance)
             {
-                Debug.Log("Hovering over " + slot_key);
+                //snap into place 
+                transform.position = slotPosition;
+
+            }
+            else
+            {
+                transform.position = initialPosition;
             }
         }
     }
