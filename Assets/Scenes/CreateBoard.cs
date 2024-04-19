@@ -8,7 +8,10 @@ public class CreateBoard : MonoBehaviour
 
     public int boardSize = 2; 
     public GameObject squarePrefab; 
-    public float squareSize = 1f; 
+    public float squareSize = 1f;
+    public static int puzzleProgress = 0;
+    public static int totalPieces;
+
 
     private int cell_counter = 1;
 
@@ -16,6 +19,7 @@ public class CreateBoard : MonoBehaviour
     void Start()
     {
         GenerateBoard();
+        totalPieces = boardSize * boardSize;
     }
 
     void GenerateBoard()
@@ -38,6 +42,37 @@ public class CreateBoard : MonoBehaviour
 
             }
         }
+    }
+
+    public static void DeletePieces()
+    {
+        string piecekey;
+        for (int i = 0; i < totalPieces; i++)
+        {
+            piecekey = "piece_" + (i+1).ToString();
+            GameObject piece = GameObject.Find(piecekey);
+            Destroy(piece);
+        }
+    }
+
+    public static void CountPiece()
+    {
+        puzzleProgress++;
+
+        if (puzzleProgress == totalPieces)
+        {
+            //DeletePieces();
+            //make the complete puzzle visible
+
+            GameObject completePuzzle = GameObject.Find("complete_puzzle");
+
+            SpriteRenderer renderer = completePuzzle.GetComponent<SpriteRenderer>();
+            renderer.enabled = true;
+
+
+        }
+
+
     }
 
 

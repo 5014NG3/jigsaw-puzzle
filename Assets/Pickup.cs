@@ -7,7 +7,7 @@ public class Pickup : MonoBehaviour
 
     private bool isDragging = false;
     private Vector3 offset;
-    private float hoverDistance = 0.33f;
+    private float hoverDistance = 0.45f;
     private string slotKey;
     private Vector3 initialPosition;
     private bool isLocked = false;
@@ -59,6 +59,7 @@ public class Pickup : MonoBehaviour
             {
                 //snap into place 
                 transform.position = slotPosition;
+                CreateBoard.CountPiece();
 
                 isLocked = true;
 
