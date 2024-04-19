@@ -41,10 +41,10 @@ public class Pickup : MonoBehaviour
         {
             Vector3 slotPosition = slot.transform.position;
 
-            float hoverDistance = 1.0f;
+            float hoverDistance = 0.25f;
             if (Vector3.Distance(transform.position, slotPosition) <= hoverDistance)
             {
-                Debug.Log("Hovering over the slot 1");
+                Debug.Log("Hovering over " + slot_key);
             }
         }
     }
