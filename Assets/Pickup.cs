@@ -9,6 +9,16 @@ public class Pickup : MonoBehaviour
     private Vector3 offset;
     public Vector2 boxSize = new Vector2(1f, 1f);
     public Vector2 boxOffset = new Vector2(0f, 0f);
+    public int pieceNumber = -1;
+    private string slot_key;
+
+
+
+
+    void Start()
+    {
+        slot_key =  "slot_" + pieceNumber.ToString();
+    }
 
     void OnMouseDown()
     {
@@ -24,6 +34,19 @@ public class Pickup : MonoBehaviour
     void OnMouseUp()
     {
         isDragging = false;
+        //CHECK IF WHERE THEY LEFT THE PIECE IS THE RIGHT SLOT
+
+        GameObject slot = GameObject.Find(slot_key);
+        if (slot != null)
+        {
+            Vector3 slotPosition = slot.transform.position;
+
+            float hoverDistance = 1.0f;
+            if (Vector3.Distance(transform.position, slotPosition) <= hoverDistance)
+            {
+                Debug.Log("Hovering over the slot 1");
+            }
+        }
     }
 
 
@@ -34,29 +57,9 @@ public class Pickup : MonoBehaviour
             Vector3 mousePosition = Input.mousePosition;
             mousePosition.z = Camera.main.WorldToScreenPoint(transform.position).z;
             transform.position = Camera.main.ScreenToWorldPoint(mousePosition + offset);
-
-            GameObject slot = GameObject.Find("slot_1");
-            if (slot != null)
-            {
-                Vector3 slotPosition = slot.transform.position;
-                Debug.Log(slotPosition);
-                Debug.Log(transform.position);
-
-                float hoverDistance = 1.0f;
-                if (Vector3.Distance(transform.position, slotPosition) <= hoverDistance)
-                {
-                    Debug.Log("Hovering over the slot 1");
-                }
-            }
-
-
         }
 
     }
 
 
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        Debug.Log("Collided with: " + other.gameObject.name);
-    }
 }
