@@ -25,12 +25,12 @@ public class CreateBoard : MonoBehaviour
         {
             for (int j = 0; j < boardSize; j++)
             {
-                Vector3 position = new Vector3((i-boardSize / 2f) * squareSize, (j - boardSize / 2f) * squareSize, 0 );
+                Vector3 position = new Vector3((i - (boardSize - 1) / 2f) * squareSize, (j - (boardSize - 1) / 2f) * squareSize, 0);
 
                 GameObject square = Instantiate(squarePrefab, position, Quaternion.identity, transform);
                 square.name = "slot_" + cell_counter.ToString();
 
-                square.GetComponent<SpriteRenderer>().material.color = Color.black;
+                square.GetComponent<SpriteRenderer>().material.color = Color.white;
 
                 cell_counter += 1;
 
