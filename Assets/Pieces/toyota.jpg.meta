@@ -143,7 +143,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      toyota_0: 1040840561935396576
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
