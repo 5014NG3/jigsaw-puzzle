@@ -7,15 +7,13 @@ public class Pickup : MonoBehaviour
 
     private bool isDragging = false;
     private Vector3 offset;
-    private float hoverDistance = 0.45f;
+    private float hoverDistance = 0.5f;
     private string slotKey;
     private Vector3 initialPosition;
     private bool isLocked = false;
+
     public AudioSource snapSound;
     public AudioSource errorSound;
-
-
-
     public Vector2 boxSize = new Vector2(1f, 1f);
     public Vector2 boxOffset = new Vector2(0f, 0f);
     public int pieceNumber = -1;
@@ -63,8 +61,12 @@ public class Pickup : MonoBehaviour
                 transform.position = slotPosition;
                 CreateBoard.CountPiece();
                 snapSound.Play();
-
                 isLocked = true;
+                SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+
+                spriteRenderer.sortingLayerName = "Placed";
+
+
 
             }
             else
